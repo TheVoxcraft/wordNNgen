@@ -49,19 +49,19 @@ class Network{
     }
     
     // Feed forward
-    for(int i=0; i < in_size; i++){
-      for(int j=0; j < l1_size; j++){
+    for(int i=0; i < in_size-1; i++){
+      for(int j=0; j < l1_size-1; j++){
         l1[j] += in[i]*in_l1[i][j];
       }
     }
-    for(int i=0; i < l1_size; i++){
+    for(int i=0; i < l1_size-1; i++){
       l1[i] = activation(l1[i]);
-      for(int j=0; j < l2_size; j++){
+      for(int j=0; j < l2_size-1; j++){
         l2[j] += l1[i]*l1_l2[i][j];
       }
       
     }
-    for(int i=0; i < l2_size; i++){
+    for(int i=0; i < l2_size-1; i++){
       l2[i] = activation(l2[i]);
       for(int j=0; j < out_size; j++){
         out[j] += l2[i]*l2_out[i][j];
@@ -69,7 +69,7 @@ class Network{
     }
     
     for(int j=0; j < out_size; j++){
-        out[j] = activation(out[j]);
+        out[j] = sigmoid(out[j]);
     }
     
     return out;
@@ -78,21 +78,21 @@ class Network{
   Network Reproduce(Network partner){
     Network child = new Network();
     
-    for(int i=0; i < in_size; i++){
-      for(int j=0; j < l1_size; j++){
+    for(int i=0; i < in_size-1; i++){
+      for(int j=0; j < l1_size-1; j++){
         if(random(0.0, 1.0) <= muationRate){
           child.in_l1[i][j] = random(-1.0, 1.0); //print("m");
         }
       }
     }
-    for(int i=0; i < l1_size; i++){
-      for(int j=0; j < l2_size; j++){
+    for(int i=0; i < l1_size-1; i++){
+      for(int j=0; j < l2_size-1; j++){
         if(random(0.0, 1.0) <= muationRate){
           child.l1_l2[i][j] += random(-1.0, 1.0);//print("m");
         }
       }
     }
-    for(int i=0; i < l2_size; i++){
+    for(int i=0; i < l2_size-1; i++){
       for(int j=0; j < out_size; j++){
         if(random(0.0, 1.0) <= muationRate){
           child.l2_out[i][j] = random(-1.0, 1.0);//print("m");

@@ -67,30 +67,34 @@ void setup(){
   
   String[] data = loadStrings("names.txt");
   
-  //for(int i = 0; i<runs; i++){
-  //  for(String word : data){
-  //    for(int j = 0; j<pop; j++){
-  //      float[] input = StringTof(word);
-  //      //nn[j].run(input);
-  //    }
-  //  }
-  //}
-  //float[] f = StringTof("qwuh");
-  //for(int i=0;i<216)
-  //for(int i=0;i<27;i++){
-  //  print(fToChar(x));
-  //}
-}
-
-
-String getBestAns(){
-  float score = -1;
-  Network bestNet = nn[(int)random(0,nn.length)];
-  for(int i=0;i<pop;i++){
-    if(nn[i].SCORE > score){
-      score = nn[i].SCORE;
-      bestNet = nn[i];
+  for(int i = 0; i<runs; i++){
+    for(String word : data){
+      for(int j = 0; j<pop; j++){
+        float[] input = StringTof(word);
+        //nn[j].run(input);
+      }
+      nn = rearrange();
     }
   }
-  return fToString(bestNet.run(getRandom()));
+}
+
+Network[] rearrange(){
+  Network[] newNN = new Network[20];
+  for(int i=0;i<nn.length;i++){
+    
+  }
+  
+  return newNN;
+}
+
+Network getBest(Network[] x){
+  float score = -1;
+  Network bestNet = x[(int)random(0,nn.length)];
+  for(int i=0;i<x.length;i++){
+    if(x[i].SCORE > score){
+      score = nn[i].SCORE;
+      bestNet = x[i];
+    }
+  }
+  return bestNet;
 }
