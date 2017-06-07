@@ -1,8 +1,8 @@
 class Network{
   
   int in_size = (alphabet_size*word_len)+1; // get:board-pos, get:health, get:food, get:memory, bias
-  int l1_size = 70+1; // + 1 bias
-  int l2_size = 70+1; // + 1 bias
+  int l1_size = 20+1; // + 1 bias
+  int l2_size = 20+1; // + 1 bias
   int out_size = 216; // vector:direction, bool:move, bool:eat, out:memory
   
   float[] in = new float[in_size];
@@ -16,7 +16,9 @@ class Network{
   
   float muationRate = .05; // ADD THIS LATER!
   
-  float SCORE = 0;
+  int SCORE = 0;
+  
+  int ID = (int)random(0,99999);
   
   void randomizeWeights(){
     for(int i=0; i < in_size; i++){
@@ -75,7 +77,7 @@ class Network{
     return out;
   }
   
-  Network Reproduce(Network partner){
+  Network Reproduce(){
     Network child = new Network();
     
     for(int i=0; i < in_size-1; i++){
@@ -101,6 +103,23 @@ class Network{
     }
     
     return child;
+  }
+  
+  void updateScore(float[] _in){
+    float[] _pOut = normalizeOutput(run(getRandom()));
+    for(int i=0;i<alphabet_size*word_len;i++){
+      if(_pOut[i] == normalizeFloat(_in[i])){
+        SCORE += 1;
+      }
+    }
+  }
+  
+  float normalizeFloat(float i){
+    if(i > .5){
+      return 1;
+    } else {
+      return 0;
+    }
   }
   
   float tanh(float x){
