@@ -85,7 +85,7 @@ void setup(){
 
 String getBestAns(){
   float score = -1;
-  Network bestNet;
+  Network bestNet = nn[(int)random(0,nn.length)];
   for(int i=0;i<pop;i++){
     if(nn[i].SCORE > score){
       score = nn[i].SCORE;
