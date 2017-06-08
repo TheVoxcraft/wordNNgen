@@ -156,19 +156,19 @@ void getAvgError(){
   for(int j = 0; j<pop; j++){
     x+=(nn[j].SCORE/216);
   }
-  error = x/pop;
-  print(x);
+  error = (float)x/pop;
 }
 
 void geneticNet(){ // WORK HERE <-- scoring and reproduction
   String[] data = loadStrings("names.txt");
-  for(int k = 0; k < 1 ; k++){
+  int k = (int)random(0, data.length);
     for(int j = 0; j<pop; j++){
       if(data[k].length() < 8){
         float[] input = getRandom();
         nn[j].updateScore(StringTof(data[k]));
       }
     }
+    nn = reproduce();
   }
   gens++;
   getAvgError();
